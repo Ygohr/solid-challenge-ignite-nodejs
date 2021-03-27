@@ -10,14 +10,14 @@ describe("[POST] /users", () => {
       .post("/users")
       .send({
         name: "John Doe",
-        email: "john.doe@example.com",
+        email: "john.doe@example.com"
       })
       .expect(201);
 
     expect(response.body).toMatchObject({
       name: "John Doe",
       email: "john.doe@example.com",
-      admin: false,
+      admin: false
     });
   });
 
@@ -26,7 +26,7 @@ describe("[POST] /users", () => {
       .post("/users")
       .send({
         name: "John Doe",
-        email: "john.doe@example.com",
+        email: "john.doe@example.com"
       })
       .expect(400);
 
@@ -40,22 +40,20 @@ describe("[PATCH] /users/:user_id/admin", () => {
 
     const user = usersRepository.create({
       name: String(Math.random()),
-      email: String(Math.random()),
+      email: String(Math.random())
     });
 
     const response = await request(app).patch(`/users/${user.id}/admin`);
 
     expect(response.body).toMatchObject({
       name: user.name,
-      email: user.email,
+      email: user.email
     });
     expect(response.body.admin).toBe(true);
   });
 
   it("should not be able to turn a non existing user as admin", async () => {
-    const response = await request(app)
-      .patch(`/users/${v4()}/admin`)
-      .expect(404);
+    const response = await request(app).patch(`/users/${v4()}/admin`).expect(404);
 
     expect(response.body.error).toBeTruthy();
   });
@@ -67,7 +65,7 @@ describe("[GET] /users/:user_id", () => {
 
     const user = usersRepository.create({
       name: String(Math.random()),
-      email: String(Math.random()),
+      email: String(Math.random())
     });
 
     const response = await request(app).get(`/users/${user.id}`);
@@ -75,13 +73,13 @@ describe("[GET] /users/:user_id", () => {
     const parsedResponse = {
       ...response.body,
       created_at: new Date(response.body.created_at),
-      updated_at: new Date(response.body.updated_at),
+      updated_at: new Date(response.body.updated_at)
     };
 
     expect(parsedResponse).toMatchObject({
       ...user,
       created_at: user.created_at,
-      updated_at: user.updated_at,
+      updated_at: user.updated_at
     });
   });
 
@@ -98,19 +96,19 @@ describe("[GET] /users", () => {
 
     const user1 = usersRepository.create({
       name: String(Math.random()),
-      email: String(Math.random()),
+      email: String(Math.random())
     });
 
     usersRepository.turnAdmin(user1);
 
     const user2 = usersRepository.create({
       name: String(Math.random()),
-      email: String(Math.random()),
+      email: String(Math.random())
     });
 
     const user3 = usersRepository.create({
       name: String(Math.random()),
-      email: String(Math.random()),
+      email: String(Math.random())
     });
 
     const response = await request(app).get("/users").set("user_id", user1.id);
@@ -119,15 +117,9 @@ describe("[GET] /users", () => {
       response.body.map((res) => ({
         ...res,
         created_at: new Date(res.created_at),
-        updated_at: new Date(res.updated_at),
+        updated_at: new Date(res.updated_at)
       }))
-    ).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ ...user1, admin: true }),
-        user2,
-        user3,
-      ])
-    );
+    ).toEqual(expect.arrayContaining([expect.objectContaining({ ...user1, admin: true }), user2, user3]));
   });
 
   it("should not be able to a non admin user get list of all users", async () => {
@@ -135,13 +127,10 @@ describe("[GET] /users", () => {
 
     const user = usersRepository.create({
       name: String(Math.random()),
-      email: String(Math.random()),
+      email: String(Math.random())
     });
 
-    const response = await request(app)
-      .get("/users")
-      .set("user_id", user.id)
-      .expect(400);
+    const response = await request(app).get("/users").set("user_id", user.id).expect(400);
 
     expect(response.body.error).toBeTruthy();
   });
@@ -151,22 +140,16 @@ describe("[GET] /users", () => {
 
     const user = usersRepository.create({
       name: String(Math.random()),
-      email: String(Math.random()),
+      email: String(Math.random())
     });
 
-    const response = await request(app)
-      .get("/users")
-      .set("user_id", user.id)
-      .expect(400);
+    const response = await request(app).get("/users").set("user_id", user.id).expect(400);
 
     expect(response.body.error).toBeTruthy();
   });
 
   it("should not be able to a non existing user get list of all users", async () => {
-    const response = await request(app)
-      .get("/users")
-      .set("user_id", v4())
-      .expect(400);
+    const response = await request(app).get("/users").set("user_id", v4()).expect(400);
 
     expect(response.body.error).toBeTruthy();
   });
