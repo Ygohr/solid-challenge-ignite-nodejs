@@ -3,7 +3,7 @@
 <br>
 
 ## :pushpin: Sobre o Desafio
-Esta aplicação tem como objetivo a aplicação dos princípios de SOLID, implementando algumas funcionalidades como:
+Esta aplicação tem como objetivo a aplicação dos princípios de **SOLID**, implementando algumas funcionalidades como:
 - Criar um novo usuário
 - Listar um usuário por ID
 - Tornar o usuário ADMIN
