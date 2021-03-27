@@ -1,0 +1,228 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Users API",
+		"description": "This is a API for users management",
+		"version": "1.0.0",
+		"contact": {
+			"email": "medeirosygohr@gmail.com"
+		}
+	},
+	"paths": {
+        "/users": {
+			"post": {
+				"tags": ["Users"],
+				"summary": "Create user",
+				"description": "Create a new user",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string",
+                                        "required": true
+									},
+									"email": {
+										"type": "string",
+                                        "required": true
+									}
+								},
+								"example": {
+									"name": "John Doe",
+									"email": "johndoe@sample.com"
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },                                            
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+									}
+								}
+							}
+						}                         
+					},
+					"400": {
+						"description": "Email already exists!"
+					}
+				}
+			},
+			"get": {
+				"tags": ["Users"],
+				"summary": "ListAll",
+				"description": "List all users",
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "header",
+                    "type": "string"
+                  }],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"name": {
+												"type": "string"
+											},
+											"email": {
+												"type": "string"
+											},
+											"admin": {
+												"type": "boolean"
+											},                                            
+											"created_at": {
+												"type": "string",
+                                                "format": "date-time"
+											},
+											"updated_at": {
+												"type": "string",
+                                                "format": "date-time"
+											}                                            
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "User is not admin!"
+					}
+				}
+			}
+		},
+        "/users/{user_id}": {
+			"get": {
+				"tags": ["Users"],
+				"summary": "GetById",
+				"description": "Show a user profile",
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "type": "string"
+                  }],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },                                            
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }                                            
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User does not exists!"
+					}
+				}
+			}            
+        },
+        "/users/{user_id}/admin": {
+			"patch": {
+				"tags": ["Users"],
+				"summary": "Turn ADMIN",
+				"description": "Turn a existing user in ADMIN",
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "type": "string"
+                  }],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },                                            
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+									}
+								}
+							}
+						}                        
+					},
+					"404": {
+						"description": "User does not exists!"
+					}
+				}
+			}            
+        }
+	}
+}

@@ -1,4 +1,4 @@
-# ⚔️ Ignite - Desafio 4 : Conceitos de SOLID
+# ⚔️ Ignite - Desafio 4 : Conceitos de SOLID & Swagger
 ![](assets/capa_ignite.png)
 <br>
 
@@ -8,6 +8,8 @@ Esta aplicação tem como objetivo a aplicação dos princípios de SOLID, imple
 - Listar um usuário por ID
 - Tornar o usuário ADMIN
 - Listar todos os usuários através de um usuário ADMIN.
+
+A aplicação conta também com uma _API Documentation_ via **Swagger**, servindo como descrição de _inputs_ e _outputs_ das requisições.
 
 O _template_ de arquivos utilizados neste projeto pode ser acessado em: [**template.**](https://github.com/rocketseat-education/ignite-template-introducao-ao-SOLID)
 
