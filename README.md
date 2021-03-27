@@ -2,7 +2,7 @@
 ![](assets/capa_ignite.png)
 <br>
 
-## :pushpin: Sobre o Desafio
+## :pushpin: Sobre
 Esta aplicação tem como objetivo a aplicação dos princípios de **SOLID**, implementando algumas funcionalidades como:
 - Criar um novo usuário
 - Listar um usuário por ID
